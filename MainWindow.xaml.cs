@@ -47,14 +47,6 @@ namespace Quaoar
 
         public MainWindow()
         {
-            string text = "/convertusd 1,2";
-            Regex regex = new Regex(@"\/convertusd ([0-9,]+)");
-            Match match = regex.Match(text);
-            double quantity = Double.Parse(match.Groups[1].Value);
-            string test = $"{quantity}";
-            
-            //new string[] { "Yo", "Bonjour"}.Any(x => text.StartsWith(x))
-
             try
             {
                 InitializeComponent();
