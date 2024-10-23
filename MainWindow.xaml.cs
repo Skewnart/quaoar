@@ -100,6 +100,9 @@ namespace Quaoar
             {
                 this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
                 {
+                    if (this.Lines.Any(l => l.Content.Equals(data)))
+                        return;
+
                     this.Lines.Insert(0, new ClipboardLine(1, data, format));
                     foreach (ClipboardLine line in this.Lines)
                         line.Number = this.Lines.IndexOf(line) + 1;
