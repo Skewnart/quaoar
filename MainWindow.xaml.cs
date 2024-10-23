@@ -20,7 +20,7 @@ namespace Quaoar
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
         private const int HOTKEY_ID = 9000;
 
-        public static readonly int MAXITEMS = 15;
+        public static readonly int MAXITEMS = 50;
         public bool Selecting { get; set; } = false;
 
         public ObservableCollection<ClipboardTile> Tiles { get; set; } = new ObservableCollection<ClipboardTile>();
