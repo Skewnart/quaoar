@@ -53,6 +53,8 @@ namespace Quaoar.Containers
 
                 this.MainGrid.Children.Add(textblock);
                 this.MainGrid.Children.Add(grid);
+
+                this.MainGrid.ToolTip = this.Content;
             }
             else if (this.Content is System.Drawing.Bitmap)
             {
