@@ -19,7 +19,7 @@
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
     <Grid Grid.Column="0" Background="Black">
-        <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Content="{Binding Number}"/>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="{Binding Number}"/>
     </Grid>
     <Grid Grid.Column="1" Background="Black">
         <Label HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="{Binding Content, Converter={StaticResource typeToReadableTypeConverter}, Mode=OneWay}" FontStyle="Italic"/>
