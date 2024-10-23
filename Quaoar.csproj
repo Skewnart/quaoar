@@ -60,9 +60,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Containers\TileBase.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Containers\ClipboardLine.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -74,8 +74,8 @@
     </Compile>
     <Compile Include="ClipboardMonitor.cs" />
     <Compile Include="Components\PathLine.cs" />
-    <Compile Include="Containers\TileBase.xaml.cs">
-      <DependentUpon>TileBase.xaml</DependentUpon>
+    <Compile Include="Containers\ClipboardLine.xaml.cs">
+      <DependentUpon>ClipboardLine.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\TypeToReadableTypeConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">

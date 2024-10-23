@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -23,18 +22,18 @@ namespace Quaoar
         public static readonly int MAXITEMS = 50;
         public bool Selecting { get; set; } = false;
 
-        public ObservableCollection<ClipboardTile> Tiles { get; set; } = new ObservableCollection<ClipboardTile>();
+        public ObservableCollection<ClipboardLine> Lines { get; set; } = new ObservableCollection<ClipboardLine>();
 
         private IntPtr _windowHandle;
         private HwndSource _source;
 
-        private ClipboardTile selectedTile;
-        public ClipboardTile SelectedTile
+        private ClipboardLine selectedLine;
+        public ClipboardLine SelectedLine
         {
-            get { return selectedTile; }
+            get { return selectedLine; }
             set
             {
-                selectedTile = value;
+                selectedLine = value;
                 OnPropertyChanged("SelectedTile");
             }
         }
@@ -101,12 +100,12 @@ namespace Quaoar
             {
                 this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(() =>
                 {
-                    this.Tiles.Insert(0, new ClipboardTile(1, data, format));
-                    foreach (ClipboardTile tile in this.Tiles)
-                        tile.Number = this.Tiles.IndexOf(tile) + 1;
+                    this.Lines.Insert(0, new ClipboardLine(1, data, format));
+                    foreach (ClipboardLine line in this.Lines)
+                        line.Number = this.Lines.IndexOf(line) + 1;
 
-                    while (this.Tiles.Count > MAXITEMS)
-                        this.Tiles.RemoveAt(MAXITEMS);
+                    while (this.Lines.Count > MAXITEMS)
+                        this.Lines.RemoveAt(MAXITEMS);
                 }));
             }
 
@@ -131,23 +130,23 @@ namespace Quaoar
             {
                 if ((e.Key == Key.Escape))
                     this.Visibility = Visibility.Hidden;
-                else if (this.SelectedTile != null)
+                else if (this.SelectedLine != null)
                 {
                     if (e.Key == Key.Enter)
                     {
                         this.Selecting = true;
-                        Clipboard.SetData(this.SelectedTile.Format.ToString(), this.SelectedTile.Content);
+                        Clipboard.SetData(this.SelectedLine.Format.ToString(), this.SelectedLine.Content);
                         this.Visibility = Visibility.Hidden;
                     }
                     else if (e.Key == Key.Delete)
                     {
-                        int index = this.Tiles.IndexOf(this.SelectedTile);
-                        this.Tiles.Remove(this.SelectedTile);
-                        foreach (ClipboardTile tile in this.Tiles)
-                            tile.Number = this.Tiles.IndexOf(tile) + 1;
+                        int index = this.Lines.IndexOf(this.SelectedLine);
+                        this.Lines.Remove(this.SelectedLine);
+                        foreach (ClipboardLine line in this.Lines)
+                            line.Number = this.Lines.IndexOf(line) + 1;
 
-                        if (this.Tiles.Count > 0)
-                            this.SelectedTile = index < this.Tiles.Count ? this.Tiles[index] : this.Tiles.Last();
+                        if (this.Lines.Count > 0)
+                            this.SelectedLine = index < this.Lines.Count ? this.Lines[index] : this.Lines.Last();
                     }
                 }
             }
@@ -155,10 +154,10 @@ namespace Quaoar
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (this.SelectedTile != null)
+            if (this.SelectedLine != null)
             {
                 this.Selecting = true;
-                Clipboard.SetData(this.SelectedTile.Format.ToString(), this.SelectedTile.Content);
+                Clipboard.SetData(this.SelectedLine.Format.ToString(), this.SelectedLine.Content);
                 this.Visibility = Visibility.Hidden;
             }
         }

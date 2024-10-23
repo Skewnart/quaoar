@@ -13,10 +13,8 @@ using System.Windows.Data;
 
 namespace Quaoar.Containers
 {
-    public partial class ClipboardTile : Grid, INotifyPropertyChanged
-    {
-        public static readonly int SIZE = 200;
-        
+    public partial class ClipboardLine : Grid, INotifyPropertyChanged
+    {        
         public object Content { get; set; }
         public ClipboardFormat Format { get; set; }
 
@@ -35,14 +33,13 @@ namespace Quaoar.Containers
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public ClipboardTile(int number, object content, ClipboardFormat format)
+        public ClipboardLine(int number, object content, ClipboardFormat format)
         {
             this.Number = number;
             this.Content = content;
             this.Format = format;
 
             InitializeComponent();
-            this.Height = this.Width = SIZE;
 
             this.Load();
         }
@@ -51,8 +48,8 @@ namespace Quaoar.Containers
         {
             if (this.Content is string)
             {
-                TextBlock textblock = new TextBlock() { Text = (string)this.Content, TextWrapping = System.Windows.TextWrapping.Wrap, Foreground = System.Windows.Media.Brushes.White, Padding = new System.Windows.Thickness(5, 5, 5, 0) };
-                Grid grid = new Grid() { Background = new LinearGradientBrush(new GradientStopCollection() { new GradientStop(System.Windows.Media.Color.FromArgb(0, 0, 0, 0), 0), new GradientStop(System.Windows.Media.Color.FromArgb(0, 0, 0, 0), 0.6), new GradientStop(Colors.Black, 1) }) { StartPoint = new System.Windows.Point(0, 0), EndPoint = new System.Windows.Point(0, 1) } };
+                TextBlock textblock = new TextBlock() { Text = (string)this.Content, TextWrapping = TextWrapping.Wrap, Foreground = Brushes.White, Padding = new System.Windows.Thickness(5, 0, 0, 0) };
+                Grid grid = new Grid() { Background = new LinearGradientBrush(new GradientStopCollection() { new GradientStop(Color.FromArgb(0, 0, 0, 0), 0), new GradientStop(Color.FromArgb(0, 0, 0, 0), 0.6), new GradientStop(Colors.Black, 1) }) { StartPoint = new System.Windows.Point(0, 0), EndPoint = new System.Windows.Point(0, 1) } };
 
                 this.MainGrid.Children.Add(textblock);
                 this.MainGrid.Children.Add(grid);
@@ -69,7 +66,7 @@ namespace Quaoar.Containers
                     bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
                     bitmapimage.EndInit();
 
-                    this.MainGrid.Children.Add(new System.Windows.Controls.Image() { Source = bitmapimage });
+                    this.MainGrid.Children.Add(new Image() { Source = bitmapimage });
                 }
             }
             else if (this.Content is string[])
